@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Prototipo de visualización sobre el historial personal de reproducciones de YouTube entre 2017 y 2026."
+    >
+    <title>Mi historial de YouTube</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --color-bg: #f7f7f5;
+        --color-surface: #ffffff;
+        --color-text: #151515;
+        --color-muted: #696969;
+        --color-subtle: #e6e3de;
+        --color-accent: #d71920;
+        --color-accent-dark: #a90f16;
+        --container: 1120px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--color-bg);
+        color: var(--color-text);
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.55;
+      }
+
+      a {
+        color: var(--color-accent-dark);
+        font-weight: 700;
+        text-underline-offset: 0.22em;
+        text-decoration-thickness: 0.08em;
+      }
+
+      a:focus-visible {
+        outline: 3px solid rgba(215, 25, 32, 0.3);
+        outline-offset: 4px;
+      }
+
+      .page-shell {
+        min-height: 100vh;
+      }
+
+      .container {
+        width: min(100% - 40px, var(--container));
+        margin-inline: auto;
+      }
+
+      .hero {
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-subtle);
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 330px);
+        gap: clamp(2rem, 6vw, 5rem);
+        align-items: end;
+        padding-block: clamp(4rem, 10vw, 8rem) clamp(3rem, 7vw, 5.5rem);
+      }
+
+      .eyebrow {
+        margin: 0 0 1.4rem;
+        color: var(--color-accent);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 860px;
+        margin-bottom: 1.4rem;
+        font-size: 5.4rem;
+        line-height: 0.96;
+        letter-spacing: 0;
+      }
+
+      .hero-copy {
+        max-width: 690px;
+        margin-bottom: 0;
+        color: var(--color-muted);
+        font-size: 1.25rem;
+      }
+
+      .hero-meta {
+        display: grid;
+        gap: 1rem;
+        padding-left: 1.1rem;
+        border-left: 4px solid var(--color-accent);
+      }
+
+      .meta-item {
+        display: grid;
+        gap: 0.2rem;
+      }
+
+      .meta-label {
+        color: var(--color-muted);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .meta-value {
+        font-size: 1rem;
+        font-weight: 800;
+      }
+
+      main {
+        padding-block: clamp(3rem, 7vw, 5.5rem);
+      }
+
+      .story-section {
+        padding-block: clamp(2.8rem, 7vw, 5rem);
+      }
+
+      .section-kicker {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+        margin-bottom: 1.1rem;
+        color: var(--color-accent);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .section-kicker::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: var(--color-subtle);
+      }
+
+      h2 {
+        max-width: 840px;
+        margin-bottom: 1rem;
+        font-size: 3.6rem;
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .section-lede {
+        max-width: 760px;
+        color: var(--color-muted);
+        font-size: 1.16rem;
+      }
+
+      .chart-figure {
+        margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+      }
+
+      .chart-frame {
+        overflow: hidden;
+        padding: clamp(0.6rem, 2vw, 1.4rem);
+        background: var(--color-surface);
+        border: 1px solid var(--color-subtle);
+        border-radius: 8px;
+        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.06);
+      }
+
+      .chart-image {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+      }
+
+      .chart-notes {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 1.2rem 2rem;
+        align-items: start;
+        margin-top: 1.2rem;
+        color: var(--color-muted);
+        font-size: 0.95rem;
+      }
+
+      .chart-notes p {
+        margin-bottom: 0.45rem;
+      }
+
+      .data-link {
+        white-space: nowrap;
+      }
+
+      .data-section {
+        margin-top: clamp(1rem, 3vw, 2rem);
+        padding-block: clamp(3rem, 7vw, 5rem);
+        border-top: 1px solid var(--color-subtle);
+      }
+
+      .data-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: clamp(1.5rem, 4vw, 2.4rem);
+      }
+
+      .data-block {
+        min-height: 100%;
+        padding: 1.25rem 0 0;
+        border-top: 3px solid var(--color-text);
+      }
+
+      .data-block h3 {
+        margin-bottom: 0.6rem;
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .data-block p {
+        margin-bottom: 0;
+        color: var(--color-muted);
+      }
+
+      .method-link {
+        display: inline-block;
+        margin-top: 1.7rem;
+      }
+
+      .site-footer {
+        padding-block: 2rem;
+        color: var(--color-muted);
+        font-size: 0.9rem;
+        border-top: 1px solid var(--color-subtle);
+      }
+
+      @media (max-width: 780px) {
+        .container {
+          width: min(100% - 28px, var(--container));
+        }
+
+        .hero-inner,
+        .chart-notes,
+        .data-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-meta {
+          margin-top: 0.4rem;
+        }
+
+        h1 {
+          font-size: 3.6rem;
+        }
+
+        h2 {
+          font-size: 2.7rem;
+        }
+
+        .data-link {
+          white-space: normal;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .hero-inner {
+          padding-block: 3.5rem 3rem;
+        }
+
+        .chart-frame {
+          padding: 0.4rem;
+          border-radius: 6px;
+        }
+
+        h1 {
+          font-size: 2.65rem;
+        }
+
+        h2 {
+          font-size: 2.1rem;
+        }
+
+        .section-kicker {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 0.7rem;
+        }
+
+        .section-kicker::after {
+          width: 100%;
+          flex: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="container hero-inner">
+          <div>
+            <p class="eyebrow">Mi historial de YouTube</p>
+            <h1>¿Qué dicen casi diez años de reproducciones sobre la forma en que uso YouTube?</h1>
+            <p class="hero-copy">
+              Una exploración visual de mi historial personal a partir de datos exportados mediante Google Takeout.
+            </p>
+          </div>
+
+          <aside class="hero-meta" aria-label="Resumen del conjunto de datos">
+            <div class="meta-item">
+              <span class="meta-label">Período</span>
+              <span class="meta-value">16/01/2017 al 30/08/2026</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Registros válidos</span>
+              <span class="meta-value">30.715 reproducciones</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Nivel</span>
+              <span class="meta-value">Datos agregados por mes</span>
+            </div>
+          </aside>
+        </div>
+      </header>
+
+      <main>
+        <section class="story-section container" aria-labelledby="tiempo-title">
+          <p class="section-kicker">01 - A través del tiempo</p>
+          <h2 id="tiempo-title">¿Cómo cambia mi consumo de YouTube a lo largo de los meses y los años?</h2>
+          <p class="section-lede">
+            Cantidad mensual de reproducciones registradas en mi historial personal de YouTube entre 2017 y 2026.
+          </p>
+
+          <figure class="chart-figure">
+            <div class="chart-frame">
+              <img
+                class="chart-image"
+                src="./youtube_mes_anio_editado.svg"
+                alt="Gráfico de líneas con reproducciones mensuales de YouTube para cada año entre 2017 y 2026."
+              >
+            </div>
+
+            <figcaption class="chart-notes">
+              <div>
+                <p>
+                  Se excluyeron anuncios y otros registros automáticos. 2017 y 2026 corresponden a períodos parciales.
+                </p>
+                <p>Fuente: Historial personal de YouTube - Google Takeout.</p>
+              </div>
+              <a class="data-link" href="./data/videos_por_mes_y_anio.csv">Ver los datos utilizados</a>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="data-section container" aria-labelledby="datos-title">
+          <p class="section-kicker">Sobre los datos</p>
+          <h2 id="datos-title">De historial privado a datos agregados</h2>
+          <p class="section-lede">
+            La visualización trabaja con una versión procesada del historial, pensada para mostrar patrones generales sin publicar los archivos originales.
+          </p>
+
+          <div class="data-grid">
+            <article class="data-block">
+              <h3>Fuente</h3>
+              <p>Historial personal de YouTube exportado mediante Google Takeout.</p>
+            </article>
+            <article class="data-block">
+              <h3>Procesamiento</h3>
+              <p>30.715 reproducciones después de excluir anuncios y registros automáticos.</p>
+            </article>
+            <article class="data-block">
+              <h3>Privacidad</h3>
+              <p>Los archivos originales no se publican. Solo se muestran datos agregados.</p>
+            </article>
+          </div>
+
+          <a class="method-link" href="./data/README.md">Ver metodología y descripción de los datos</a>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container">
+          Prototipo académico de Visualización de la Información / Infovis.
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
