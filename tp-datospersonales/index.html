@@ -29,7 +29,6 @@
           <a href="#suscripciones"><span>02</span> Suscripciones</a>
           <a href="#concentracion"><span>03</span> Concentración</a>
           <a href="#duracion"><span>04</span> Duración</a>
-          <a href="#metodologia">Metodología</a>
         </div>
       </div>
     </nav>
@@ -222,97 +221,6 @@
             </figcaption>
           </figure>
 
-          <div class="duration-insights reveal" aria-label="Hallazgos sobre duración">
-            <article>
-              <strong class="animated-number" data-target="51.5" data-decimals="1">51,5%</strong>
-              <p>de las reproducciones de 2024 duraban menos de 5 minutos.</p>
-            </article>
-            <article>
-              <strong class="animated-number" data-target="39.7" data-decimals="1">39,7%</strong>
-              <p>de las reproducciones de 2026 correspondían a videos de más de 20 minutos.</p>
-            </article>
-          </div>
-
-          <aside class="insight reveal" aria-label="Interpretación sobre duración">
-            <p class="insight-tag">La hipótesis cambió</p>
-            <p class="insight-copy">
-              Mi consumo no se hizo simplemente más corto. En 2024 se desplazó hacia contenido breve;
-              en 2025 y 2026 ocurrió el movimiento inverso y <strong>creció el peso de los videos largos</strong>.
-            </p>
-            <p class="insight-note">
-              La API informa la duración del contenido, no el tiempo que permanecí viéndolo.
-              La categoría de más de 60 minutos también incluye transmisiones largas.
-            </p>
-          </aside>
-        </div>
-      </section>
-
-      <section class="methodology" id="metodologia" aria-labelledby="metodologia-title">
-        <div class="page-width methodology-grid">
-          <header class="methodology-header reveal">
-            <p class="section-label">Metodología</p>
-            <h2 id="metodologia-title">Cómo se construyeron los datos</h2>
-            <p>
-              Una síntesis del recorrido desde el archivo personal hasta las visualizaciones.
-              Los datos crudos y cualquier credencial permanecen fuera de este sitio.
-            </p>
-          </header>
-
-          <div class="methodology-details reveal">
-            <details open>
-              <summary><span>01</span> Fuente y limpieza</summary>
-              <div class="details-copy">
-                <p>
-                  La fuente principal es el historial de reproducciones de YouTube exportado con Google Takeout,
-                  desde enero de 2017 hasta agosto de 2026. El primer y el último período son parciales.
-                </p>
-                <p>
-                  Se identificaron reproducciones mediante registros cuyo título comenzaba con “Has visto”
-                  y se excluyeron los registros de publicidad. El resultado reúne 30.715 reproducciones limpias.
-                </p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span>02</span> Canales y suscripciones</summary>
-              <div class="details-copy">
-                <p>
-                  Aproximadamente 27.010 reproducciones tenían un canal identificable. La lista de suscripciones
-                  corresponde a la exportación de 2026: no reconstruye la fecha histórica de cada suscripción.
-                </p>
-                <p>
-                  También se exportaron búsquedas y otros datos de Takeout para análisis exploratorios,
-                  pero no se publican los archivos personales originales.
-                </p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span>03</span> Duración mediante API</summary>
-              <div class="details-copy">
-                <p>
-                  Se extrajeron aproximadamente 25.702 IDs únicos. YouTube Data API v3 permitió recuperar
-                  la duración para cerca de 27.007 reproducciones del historial.
-                </p>
-                <p>
-                  Algunos videos no pudieron enriquecerse porque fueron eliminados, pasaron a ser privados
-                  o dejaron de estar disponibles. En streams, la duración de la API no es tiempo efectivamente visto.
-                </p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span>04</span> Límites y privacidad</summary>
-              <div class="details-copy">
-                <ul>
-                  <li>Los eventos publicitarios no equivalen necesariamente a cortes completos.</li>
-                  <li>Las relaciones visuales no prueban causalidad.</li>
-                  <li>2026 representa un período parcial.</li>
-                  <li>Los JSON crudos de Takeout y las credenciales de API no se publican.</li>
-                </ul>
-              </div>
-            </details>
-          </div>
         </div>
       </section>
 
