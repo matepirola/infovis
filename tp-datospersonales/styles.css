@@ -402,6 +402,17 @@ h1 em {
   line-height: 0.98;
 }
 
+.section-intro h2.graph-label {
+  margin-bottom: 0;
+  color: var(--accent-dark);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 850;
+  line-height: 1.6;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .section-intro > p:last-child,
 .methodology-header > p:last-child,
 .data-access-grid > div:last-child > p {
