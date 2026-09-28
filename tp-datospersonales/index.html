@@ -5,395 +5,397 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="Prototipo de visualización sobre el historial personal de reproducciones de YouTube entre 2017 y 2026."
+      content="Una exploración visual del historial personal de YouTube de Mateo Pirola Paulovich entre 2017 y 2026."
     >
-    <title>Mi historial de YouTube</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --color-bg: #f7f7f5;
-        --color-surface: #ffffff;
-        --color-text: #151515;
-        --color-muted: #696969;
-        --color-subtle: #e6e3de;
-        --color-accent: #d71920;
-        --color-accent-dark: #a90f16;
-        --container: 1120px;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        background: var(--color-bg);
-        color: var(--color-text);
-        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        line-height: 1.55;
-      }
-
-      a {
-        color: var(--color-accent-dark);
-        font-weight: 700;
-        text-underline-offset: 0.22em;
-        text-decoration-thickness: 0.08em;
-      }
-
-      a:focus-visible {
-        outline: 3px solid rgba(215, 25, 32, 0.3);
-        outline-offset: 4px;
-      }
-
-      .page-shell {
-        min-height: 100vh;
-      }
-
-      .container {
-        width: min(100% - 40px, var(--container));
-        margin-inline: auto;
-      }
-
-      .hero {
-        background: var(--color-surface);
-        border-bottom: 1px solid var(--color-subtle);
-      }
-
-      .hero-inner {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(220px, 330px);
-        gap: clamp(2rem, 6vw, 5rem);
-        align-items: end;
-        padding-block: clamp(4rem, 10vw, 8rem) clamp(3rem, 7vw, 5.5rem);
-      }
-
-      .eyebrow {
-        margin: 0 0 1.4rem;
-        color: var(--color-accent);
-        font-size: 0.78rem;
-        font-weight: 800;
-        letter-spacing: 0;
-        text-transform: uppercase;
-      }
-
-      h1,
-      h2,
-      h3,
-      p {
-        margin-top: 0;
-      }
-
-      h1 {
-        max-width: 860px;
-        margin-bottom: 1.4rem;
-        font-size: 5.4rem;
-        line-height: 0.96;
-        letter-spacing: 0;
-      }
-
-      .hero-copy {
-        max-width: 690px;
-        margin-bottom: 0;
-        color: var(--color-muted);
-        font-size: 1.25rem;
-      }
-
-      .hero-meta {
-        display: grid;
-        gap: 1rem;
-        padding-left: 1.1rem;
-        border-left: 4px solid var(--color-accent);
-      }
-
-      .meta-item {
-        display: grid;
-        gap: 0.2rem;
-      }
-
-      .meta-label {
-        color: var(--color-muted);
-        font-size: 0.76rem;
-        font-weight: 800;
-        letter-spacing: 0;
-        text-transform: uppercase;
-      }
-
-      .meta-value {
-        font-size: 1rem;
-        font-weight: 800;
-      }
-
-      main {
-        padding-block: clamp(3rem, 7vw, 5.5rem);
-      }
-
-      .story-section {
-        padding-block: clamp(2.8rem, 7vw, 5rem);
-      }
-
-      .section-kicker {
-        display: flex;
-        gap: 0.8rem;
-        align-items: center;
-        margin-bottom: 1.1rem;
-        color: var(--color-accent);
-        font-size: 0.78rem;
-        font-weight: 800;
-        letter-spacing: 0;
-        text-transform: uppercase;
-      }
-
-      .section-kicker::after {
-        content: "";
-        height: 1px;
-        flex: 1;
-        background: var(--color-subtle);
-      }
-
-      h2 {
-        max-width: 840px;
-        margin-bottom: 1rem;
-        font-size: 3.6rem;
-        line-height: 1.02;
-        letter-spacing: 0;
-      }
-
-      .section-lede {
-        max-width: 760px;
-        color: var(--color-muted);
-        font-size: 1.16rem;
-      }
-
-      .chart-figure {
-        margin: clamp(2rem, 5vw, 3.5rem) 0 0;
-      }
-
-      .chart-frame {
-        overflow: hidden;
-        padding: clamp(0.6rem, 2vw, 1.4rem);
-        background: var(--color-surface);
-        border: 1px solid var(--color-subtle);
-        border-radius: 8px;
-        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.06);
-      }
-
-      .chart-image {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-      }
-
-      .chart-notes {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 1.2rem 2rem;
-        align-items: start;
-        margin-top: 1.2rem;
-        color: var(--color-muted);
-        font-size: 0.95rem;
-      }
-
-      .chart-notes p {
-        margin-bottom: 0.45rem;
-      }
-
-      .data-link {
-        white-space: nowrap;
-      }
-
-      .data-section {
-        margin-top: clamp(1rem, 3vw, 2rem);
-        padding-block: clamp(3rem, 7vw, 5rem);
-        border-top: 1px solid var(--color-subtle);
-      }
-
-      .data-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1rem;
-        margin-top: clamp(1.5rem, 4vw, 2.4rem);
-      }
-
-      .data-block {
-        min-height: 100%;
-        padding: 1.25rem 0 0;
-        border-top: 3px solid var(--color-text);
-      }
-
-      .data-block h3 {
-        margin-bottom: 0.6rem;
-        font-size: 0.78rem;
-        font-weight: 900;
-        letter-spacing: 0;
-        text-transform: uppercase;
-      }
-
-      .data-block p {
-        margin-bottom: 0;
-        color: var(--color-muted);
-      }
-
-      .method-link {
-        display: inline-block;
-        margin-top: 1.7rem;
-      }
-
-      .site-footer {
-        padding-block: 2rem;
-        color: var(--color-muted);
-        font-size: 0.9rem;
-        border-top: 1px solid var(--color-subtle);
-      }
-
-      @media (max-width: 780px) {
-        .container {
-          width: min(100% - 28px, var(--container));
-        }
-
-        .hero-inner,
-        .chart-notes,
-        .data-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .hero-meta {
-          margin-top: 0.4rem;
-        }
-
-        h1 {
-          font-size: 3.6rem;
-        }
-
-        h2 {
-          font-size: 2.7rem;
-        }
-
-        .data-link {
-          white-space: normal;
-        }
-      }
-
-      @media (max-width: 520px) {
-        .hero-inner {
-          padding-block: 3.5rem 3rem;
-        }
-
-        .chart-frame {
-          padding: 0.4rem;
-          border-radius: 6px;
-        }
-
-        h1 {
-          font-size: 2.65rem;
-        }
-
-        h2 {
-          font-size: 2.1rem;
-        }
-
-        .section-kicker {
-          align-items: flex-start;
-          flex-direction: column;
-          gap: 0.7rem;
-        }
-
-        .section-kicker::after {
-          width: 100%;
-          flex: none;
-        }
-      }
-    </style>
+    <meta name="theme-color" content="#f4f1eb">
+    <title>Mi historial de YouTube — Mateo Pirola Paulovich</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./script.js" defer></script>
   </head>
+
   <body>
-    <div class="page-shell">
-      <header class="hero">
-        <div class="container hero-inner">
-          <div>
-            <p class="eyebrow">Mi historial de YouTube</p>
-            <h1>Mi consumo de YouTube por mes y año</h1>
-            <p class="hero-copy">
-              Análisis de 30.715 reproducciones válidas registradas entre 2017 y 2026 a partir de Google Takeout.
-            </p>
-          </div>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="reading-progress" aria-hidden="true"><span></span></div>
 
-          <aside class="hero-meta" aria-label="Resumen del conjunto de datos">
-            <div class="meta-item">
-              <span class="meta-label">Período</span>
-              <span class="meta-value">16/01/2017 al 30/08/2026</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Registros válidos</span>
-              <span class="meta-value">30.715 reproducciones</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Nivel</span>
-              <span class="meta-value">Datos agregados por mes</span>
-            </div>
-          </aside>
+    <nav class="site-nav" aria-label="Navegación principal">
+      <div class="nav-inner">
+        <a class="nav-brand" href="#inicio" aria-label="Volver al inicio">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Mi historial</span>
+        </a>
+        <div class="nav-links" aria-label="Índice de visualizaciones">
+          <a href="#publicidad"><span>01</span> Publicidad</a>
+          <a href="#suscripciones"><span>02</span> Suscripciones</a>
+          <a href="#concentracion"><span>03</span> Concentración</a>
+          <a href="#duracion"><span>04</span> Duración</a>
+          <a href="#metodologia">Metodología</a>
         </div>
-      </header>
+      </div>
+    </nav>
 
-      <main>
-        <section class="story-section container" aria-labelledby="tiempo-title">
-          <p class="section-kicker">01 - Reproducciones mensuales</p>
-          <h2 id="tiempo-title">Comparación mensual del historial de YouTube</h2>
-          <p class="section-lede">
-            Cantidad de reproducciones registradas por mes para cada año del período analizado.
+    <header class="hero" id="inicio">
+      <div class="hero-grid page-width">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Archivo personal · 2017—2026</p>
+          <h1>Mi historial<br>de <em>YouTube</em></h1>
+          <p class="hero-lede">
+            Casi una década de reproducciones para entender cómo cambiaron mi atención,
+            mis hábitos y la forma en que consumo contenido.
           </p>
+        </div>
 
-          <figure class="chart-figure">
-            <div class="chart-frame">
-              <img
-                class="chart-image"
-                src="./youtube_mes_anio_editado.svg"
-                alt="Gráfico de líneas con reproducciones mensuales de YouTube para cada año entre 2017 y 2026."
-              >
+        <aside class="hero-summary reveal" aria-label="Resumen del conjunto de datos">
+          <p class="summary-label">El archivo, en breve</p>
+          <div class="summary-stat">
+            <strong>30.715</strong>
+            <span>reproducciones limpias</span>
+          </div>
+          <dl>
+            <div>
+              <dt>Período</dt>
+              <dd>Ene. 2017 — Ago. 2026</dd>
             </div>
+            <div>
+              <dt>Origen</dt>
+              <dd>Google Takeout</dd>
+            </div>
+            <div>
+              <dt>Alcance</dt>
+              <dd>Datos personales agregados</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
 
-            <figcaption class="chart-notes">
-              <div>
-                <p>
-                  Se excluyeron anuncios y otros registros automáticos. 2017 y 2026 corresponden a períodos parciales.
-                </p>
-                <p>Fuente: Historial personal de YouTube - Google Takeout.</p>
+      <div class="hero-foot page-width reveal">
+        <p>Cuatro preguntas para leer una historia de consumo que no fue lineal.</p>
+        <a href="#publicidad">Empezar a explorar <span aria-hidden="true">↓</span></a>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section class="story-section" id="publicidad" aria-labelledby="publicidad-title">
+        <div class="page-width">
+          <header class="section-header reveal">
+            <div class="section-index" aria-hidden="true">
+              <span>01</span><span>/ 04</span>
+            </div>
+            <div class="section-intro">
+              <p class="section-label">Publicidad</p>
+              <h2 id="publicidad-title">¿Cuántos eventos publicitarios registra YouTube por cada 100 reproducciones?</h2>
+              <p>
+                No solo cambió cuánto contenido consumía. También cambió lo que ocurría alrededor
+                de cada reproducción.
+              </p>
+            </div>
+          </header>
+
+          <figure class="visualization reveal">
+            <div class="chart-shell datawrapper-shell">
+              <div style="min-height:489px" id="datawrapper-vis-jAx9u">
+                <script
+                  type="text/javascript"
+                  defer
+                  src="https://datawrapper.dwcdn.net/jAx9u/embed.js"
+                  charset="utf-8"
+                  data-target="#datawrapper-vis-jAx9u"
+                ></script>
+                <noscript>
+                  <img
+                    src="https://datawrapper.dwcdn.net/jAx9u/full.png"
+                    alt="Eventos publicitarios registrados por cada 100 reproducciones de YouTube."
+                  >
+                </noscript>
               </div>
-              <a class="data-link" href="./data/videos_por_mes_y_anio.csv">Ver los datos utilizados</a>
+            </div>
+            <figcaption>
+              Indicador: eventos publicitarios registrados ÷ reproducciones × 100.
+              La referencia en 100 equivale a un evento registrado por reproducción.
             </figcaption>
           </figure>
-        </section>
 
-        <section class="data-section container" aria-labelledby="datos-title">
-          <p class="section-kicker">Sobre los datos</p>
-          <h2 id="datos-title">Fuente, procesamiento y privacidad</h2>
-          <p class="section-lede">
-            El archivo publicado contiene datos procesados y agregados; los datos originales de Google Takeout no forman parte del repositorio.
-          </p>
+          <aside class="insight reveal" aria-label="Hallazgo sobre publicidad">
+            <p class="insight-tag">Hallazgo</p>
+            <p class="insight-copy">
+              En 2026 el registro se acerca a <strong>dos eventos publicitarios por reproducción</strong>.
+              Es una medición de eventos de Takeout: no equivale necesariamente a cortes publicitarios completos.
+            </p>
+            <p class="insight-note">
+              El descenso de 2025 coincide con un período en el que utilicé un bloqueador de anuncios,
+              pero es una hipótesis personal y no una causa demostrada. 2026 es parcial.
+            </p>
+          </aside>
+        </div>
+      </section>
 
-          <div class="data-grid">
-            <article class="data-block">
-              <h3>Fuente</h3>
-              <p>Historial personal de YouTube exportado mediante Google Takeout.</p>
+      <div class="narrative-bridge page-width reveal">
+        <span aria-hidden="true">02</span>
+        <p>Pero consumir más no significa necesariamente volver siempre a los mismos lugares.</p>
+      </div>
+
+      <section class="story-section story-section--tinted" id="suscripciones" aria-labelledby="suscripciones-title">
+        <div class="page-width">
+          <header class="section-header reveal">
+            <div class="section-index" aria-hidden="true">
+              <span>02</span><span>/ 04</span>
+            </div>
+            <div class="section-intro">
+              <p class="section-label">Suscripciones</p>
+              <h2 id="suscripciones-title">¿Qué tan alineado estuvo mi consumo con los canales que sigo hoy?</h2>
+              <p>
+                El mapa muestra qué porcentaje de las reproducciones con canal identificable pertenece
+                a canales incluidos en mi lista actual de suscripciones.
+              </p>
+            </div>
+          </header>
+
+          <figure class="visualization reveal">
+            <div class="chart-shell flourish-shell">
+              <div class="flourish-embed flourish-heatmap" data-src="visualisation/30380470">
+                <script src="https://public.flourish.studio/resources/embed.js"></script>
+                <noscript>
+                  <img
+                    src="https://public.flourish.studio/visualisation/30380470/thumbnail"
+                    width="100%"
+                    alt="Mapa de calor mensual del consumo en canales que forman parte de las suscripciones actuales."
+                  >
+                </noscript>
+              </div>
+            </div>
+            <figcaption>
+              Porcentaje mensual calculado solo sobre reproducciones con canal identificable. 2026 es parcial.
+            </figcaption>
+          </figure>
+
+          <aside class="insight reveal" aria-label="Hallazgo sobre suscripciones">
+            <p class="insight-tag">Cómo leerlo</p>
+            <p class="insight-copy">
+              Una menor coincidencia indica que una parte mayor del consumo provenía de canales que
+              <strong>hoy no forman parte de mis suscripciones</strong>.
+            </p>
+            <p class="insight-note">
+              La lista fue exportada en 2026. El gráfico no permite saber cuándo me suscribí a cada canal
+              ni atribuir una coincidencia baja al algoritmo.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <div class="narrative-bridge page-width reveal">
+        <span aria-hidden="true">03</span>
+        <p>Una cosa es seguir un canal. Otra es cuánto espacio termina ocupando dentro del consumo.</p>
+      </div>
+
+      <section class="story-section" id="concentracion" aria-labelledby="concentracion-title">
+        <div class="page-width">
+          <header class="section-header reveal">
+            <div class="section-index" aria-hidden="true">
+              <span>03</span><span>/ 04</span>
+            </div>
+            <div class="section-intro">
+              <p class="section-label">Concentración</p>
+              <h2 id="concentracion-title">¿Mi consumo de YouTube se volvió más concentrado en pocos canales?</h2>
+              <p>
+                Cada mes se reparte entre el canal más visto, los puestos 2–5, los puestos 6–10
+                y el resto de los canales identificados.
+              </p>
+            </div>
+          </header>
+
+          <figure class="visualization reveal">
+            <div class="chart-shell flourish-shell flourish-shell--tall">
+              <div class="flourish-embed flourish-chart" data-src="visualisation/30383125">
+                <script src="https://public.flourish.studio/resources/embed.js"></script>
+                <noscript>
+                  <img
+                    src="https://public.flourish.studio/visualisation/30383125/thumbnail"
+                    width="100%"
+                    alt="Concentración mensual de reproducciones según el ranking de canales más vistos."
+                  >
+                </noscript>
+              </div>
+            </div>
+            <figcaption>
+              Si aumenta el peso de los primeros diez canales, el consumo está más concentrado;
+              si crece “Resto de canales”, está más distribuido.
+            </figcaption>
+          </figure>
+
+          <aside class="insight reveal" aria-label="Hallazgo sobre concentración">
+            <p class="insight-tag">Hallazgo</p>
+            <p class="insight-copy">
+              No hay una tendencia lineal perfecta. Desde 2021 aparecen períodos en los que
+              <strong>pocos canales explican una parte mayor</strong> de las reproducciones.
+            </p>
+            <p class="insight-note">
+              El pico de enero de 2024 debe leerse con cautela: ese mes reúne aproximadamente
+              15 reproducciones con canal identificado y solo 6 canales distintos.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <div class="narrative-bridge page-width reveal">
+        <span aria-hidden="true">04</span>
+        <p>La transformación no ocurrió solo en qué canales veía, sino en el tipo de atención que pedían los videos.</p>
+      </div>
+
+      <section class="story-section story-section--tinted" id="duracion" aria-labelledby="duracion-title">
+        <div class="page-width">
+          <header class="section-header reveal">
+            <div class="section-index" aria-hidden="true">
+              <span>04</span><span>/ 04</span>
+            </div>
+            <div class="section-intro">
+              <p class="section-label">Duración</p>
+              <h2 id="duracion-title">¿Los videos que consumo se hicieron cada vez más cortos?</h2>
+              <p>
+                Cada barra anual suma el 100% de las reproducciones cuya duración pudo recuperarse
+                mediante YouTube Data API v3.
+              </p>
+            </div>
+          </header>
+
+          <figure class="visualization reveal">
+            <div class="chart-shell local-chart-shell">
+              <img
+                class="local-chart"
+                src="./assets/stacked.svg"
+                alt="Distribución porcentual anual de las reproducciones según cinco rangos de duración, entre 2017 y 2026."
+              >
+            </div>
+            <figcaption>
+              El eje vertical representa porcentaje de reproducciones, no minutos vistos. 2026 es parcial.
+            </figcaption>
+          </figure>
+
+          <div class="duration-insights reveal" aria-label="Hallazgos sobre duración">
+            <article>
+              <strong class="animated-number" data-target="51.5" data-decimals="1">51,5%</strong>
+              <p>de las reproducciones de 2024 duraban menos de 5 minutos.</p>
             </article>
-            <article class="data-block">
-              <h3>Procesamiento</h3>
-              <p>30.715 reproducciones después de excluir anuncios y registros automáticos.</p>
-            </article>
-            <article class="data-block">
-              <h3>Privacidad</h3>
-              <p>Los archivos originales no se publican. Solo se muestran datos agregados.</p>
+            <article>
+              <strong class="animated-number" data-target="39.7" data-decimals="1">39,7%</strong>
+              <p>de las reproducciones de 2026 correspondían a videos de más de 20 minutos.</p>
             </article>
           </div>
 
-          <a class="method-link" href="./data/README.md">Ver metodología y descripción de los datos</a>
-        </section>
-      </main>
-
-      <footer class="site-footer">
-        <div class="container">
-          Prototipo académico de Visualización de la Información / Infovis.
+          <aside class="insight reveal" aria-label="Interpretación sobre duración">
+            <p class="insight-tag">La hipótesis cambió</p>
+            <p class="insight-copy">
+              Mi consumo no se hizo simplemente más corto. En 2024 se desplazó hacia contenido breve;
+              en 2025 y 2026 ocurrió el movimiento inverso y <strong>creció el peso de los videos largos</strong>.
+            </p>
+            <p class="insight-note">
+              La API informa la duración del contenido, no el tiempo que permanecí viéndolo.
+              La categoría de más de 60 minutos también incluye transmisiones largas.
+            </p>
+          </aside>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      <section class="methodology" id="metodologia" aria-labelledby="metodologia-title">
+        <div class="page-width methodology-grid">
+          <header class="methodology-header reveal">
+            <p class="section-label">Metodología</p>
+            <h2 id="metodologia-title">Cómo se construyeron los datos</h2>
+            <p>
+              Una síntesis del recorrido desde el archivo personal hasta las visualizaciones.
+              Los datos crudos y cualquier credencial permanecen fuera de este sitio.
+            </p>
+          </header>
+
+          <div class="methodology-details reveal">
+            <details open>
+              <summary><span>01</span> Fuente y limpieza</summary>
+              <div class="details-copy">
+                <p>
+                  La fuente principal es el historial de reproducciones de YouTube exportado con Google Takeout,
+                  desde enero de 2017 hasta agosto de 2026. El primer y el último período son parciales.
+                </p>
+                <p>
+                  Se identificaron reproducciones mediante registros cuyo título comenzaba con “Has visto”
+                  y se excluyeron los registros de publicidad. El resultado reúne 30.715 reproducciones limpias.
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span>02</span> Canales y suscripciones</summary>
+              <div class="details-copy">
+                <p>
+                  Aproximadamente 27.010 reproducciones tenían un canal identificable. La lista de suscripciones
+                  corresponde a la exportación de 2026: no reconstruye la fecha histórica de cada suscripción.
+                </p>
+                <p>
+                  También se exportaron búsquedas y otros datos de Takeout para análisis exploratorios,
+                  pero no se publican los archivos personales originales.
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span>03</span> Duración mediante API</summary>
+              <div class="details-copy">
+                <p>
+                  Se extrajeron aproximadamente 25.702 IDs únicos. YouTube Data API v3 permitió recuperar
+                  la duración para cerca de 27.007 reproducciones del historial.
+                </p>
+                <p>
+                  Algunos videos no pudieron enriquecerse porque fueron eliminados, pasaron a ser privados
+                  o dejaron de estar disponibles. En streams, la duración de la API no es tiempo efectivamente visto.
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span>04</span> Límites y privacidad</summary>
+              <div class="details-copy">
+                <ul>
+                  <li>Los eventos publicitarios no equivalen necesariamente a cortes completos.</li>
+                  <li>Las relaciones visuales no prueban causalidad.</li>
+                  <li>2026 representa un período parcial.</li>
+                  <li>Los JSON crudos de Takeout y las credenciales de API no se publican.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="data-access" aria-labelledby="datos-title">
+        <div class="page-width data-access-grid reveal">
+          <div>
+            <p class="section-label">Transparencia</p>
+            <h2 id="datos-title">Datos y reproducibilidad</h2>
+          </div>
+          <div>
+            <p>
+              El repositorio publica únicamente archivos procesados o agregados. El conjunto disponible
+              documenta las reproducciones mensuales; los datos personales originales no forman parte del sitio.
+            </p>
+            <ul class="download-list">
+              <li><a href="./data/videos_por_mes_y_anio.csv" download>Descargar CSV procesado <span>↘</span></a></li>
+              <li><a href="./data/README.md">Leer la descripción de los datos <span>→</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-width footer-grid">
+        <div>
+          <strong>Mateo Pirola Paulovich</strong>
+          <p>Visualización de Datos Personales · Infovis · 2026</p>
+        </div>
+        <div class="footer-sources">
+          <p>Fuente principal: historial personal de YouTube exportado mediante Google Takeout.</p>
+          <p>Datos complementarios: YouTube Data API v3.</p>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>
