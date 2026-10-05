@@ -403,14 +403,25 @@ h1 em {
 }
 
 .section-intro h2.graph-label {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
   margin-bottom: 0;
   color: var(--accent-dark);
   font-family: var(--sans);
-  font-size: 0.72rem;
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
   font-weight: 850;
-  line-height: 1.6;
-  letter-spacing: 0.14em;
+  line-height: 1.25;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
+}
+
+.section-intro h2.graph-label::after {
+  content: "";
+  width: clamp(2.5rem, 6vw, 5rem);
+  height: 2px;
+  background: currentColor;
+  opacity: 0.28;
 }
 
 .section-intro > p:last-child,
