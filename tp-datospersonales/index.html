@@ -151,26 +151,41 @@
               <span>03</span><span>/ 04</span>
             </div>
             <div class="section-intro">
-              <h2 class="section-label graph-label" id="concentracion-title">Gráfico 3</h2>
+              <p class="section-label">Gráfico 3</p>
+              <h2 id="concentracion-title">¿Mi consumo de YouTube se volvió más concentrado en pocos canales?</h2>
+              <p>
+                Distribución anual de las reproducciones según el peso de los canales más vistos,
+                entre 2017 y 2026.
+              </p>
             </div>
           </header>
 
           <figure class="visualization reveal">
-            <div class="chart-shell flourish-shell flourish-shell--tall">
-              <div class="flourish-embed flourish-chart" data-src="visualisation/30383125">
-                <script src="https://public.flourish.studio/resources/embed.js"></script>
-                <noscript>
-                  <img
-                    src="https://public.flourish.studio/visualisation/30383125/thumbnail"
-                    width="100%"
-                    alt="Concentración mensual de reproducciones según el ranking de canales más vistos."
-                  >
-                </noscript>
-              </div>
+            <div class="chart-shell tableau-shell">
+              <div class='tableauPlaceholder' id='viz1791175758878' style='position: relative'><noscript><a href='#'><img alt='¿Mi consumo de YouTube se volvió más concentrado en pocos canales? ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;ConcentracionanualconsumoYouTube-MateoPirola&#47;MiconsumodeYouTubesevolvimsconcentradoenpocoscanales&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /><param name='embed_code_version' value='3' /><param name='site_root' value='' /><param name='name' value='ConcentracionanualconsumoYouTube-MateoPirola&#47;MiconsumodeYouTubesevolvimsconcentradoenpocoscanales' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;ConcentracionanualconsumoYouTube-MateoPirola&#47;MiconsumodeYouTubesevolvimsconcentradoenpocoscanales&#47;1.png' /><param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='es-ES' /></object></div>
+              <script type='text/javascript'>
+                var divElement = document.getElementById('viz1791175758878');
+                var vizElement = divElement.getElementsByTagName('object')[0];
+                // Altura responsive alrededor del embed oficial: proporción 4:3 con mínimo legible en mobile.
+                var tableauHeight = function () {
+                  var width = divElement.offsetWidth;
+                  return Math.round(width < 640 ? Math.max(width * 1.25, 460) : Math.min(width * 0.75, 820)) + 'px';
+                };
+
+                vizElement.style.width = '100%';
+                vizElement.style.height = tableauHeight();
+
+                var scriptElement = document.createElement('script');
+                scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                vizElement.parentNode.insertBefore(scriptElement, vizElement);
+              </script>
             </div>
             <figcaption>
-              Si aumenta el peso de los primeros diez canales, el consumo está más concentrado;
-              si crece “Resto de canales”, está más distribuido.
+              Para cada año se cuentan las reproducciones por canal, se ordenan los canales de mayor a menor
+              y se agrupan en canal más visto, puestos 2–5, puestos 6–10 y resto. Cada barra muestra qué
+              porcentaje de las reproducciones con canal identificable representa cada grupo; la comparación
+              entre años no implica una tendencia lineal.
+              <span class="figcaption-note">2017 y 2026 corresponden a períodos parciales.</span>
             </figcaption>
           </figure>
 
@@ -195,11 +210,16 @@
 
           <figure class="visualization reveal">
             <div class="chart-shell local-chart-shell">
-              <img
-                class="local-chart"
-                src="./assets/stacked.svg"
-                alt="Distribución porcentual anual de las reproducciones según cinco rangos de duración, entre 2017 y 2026."
-              >
+              <div class="svg-chart-wrapper">
+                <object
+                  data="./assets/stacked.svg"
+                  type="image/svg+xml"
+                  class="svg-chart"
+                  aria-label="Distribución anual de mis reproducciones según duración de los videos"
+                >
+                  <p>No se pudo cargar la visualización SVG.</p>
+                </object>
+              </div>
             </div>
             <figcaption>
               El eje vertical representa porcentaje de reproducciones, no minutos vistos. 2026 es parcial.

@@ -446,10 +446,6 @@ h1 em {
   min-height: 540px;
 }
 
-.flourish-shell--tall {
-  min-height: 590px;
-}
-
 .datawrapper-shell iframe {
   width: 100% !important;
   border: 0;
@@ -462,17 +458,33 @@ h1 em {
   border: 0;
 }
 
-.flourish-shell--tall .flourish-embed,
-.flourish-shell--tall .flourish-embed iframe {
-  min-height: 590px;
+.tableau-shell {
+  min-height: 460px;
 }
 
-.local-chart-shell {
-  overflow-x: auto;
+.tableauPlaceholder,
+.tableau-shell iframe {
+  width: 100% !important;
+  max-width: 100%;
+  border: 0;
 }
 
-.local-chart {
-  min-width: 760px;
+.svg-chart-wrapper {
+  width: 100%;
+}
+
+.svg-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1400 / 650;
+  border: 0;
+}
+
+.figcaption-note {
+  display: block;
+  margin-top: 0.35rem;
+  font-style: italic;
 }
 
 .visualization figcaption {
@@ -854,6 +866,10 @@ h1 em {
     padding-block: 5rem;
   }
 
+  .visualization {
+    margin-inline: 0;
+  }
+
   .chart-shell {
     margin-inline: -14px;
     padding: 0.45rem;
@@ -865,26 +881,17 @@ h1 em {
     min-height: 500px;
   }
 
-  .flourish-shell,
-  .flourish-shell--tall {
+  .flourish-shell {
     min-height: 520px;
   }
 
   .flourish-embed,
-  .flourish-embed iframe,
-  .flourish-shell--tall .flourish-embed,
-  .flourish-shell--tall .flourish-embed iframe {
+  .flourish-embed iframe {
     min-height: 500px;
   }
 
   .local-chart-shell {
-    overflow: hidden;
     padding: 0.7rem 0.45rem 1rem;
-  }
-
-  .local-chart {
-    width: 100%;
-    min-width: 0;
   }
 
   .insight {

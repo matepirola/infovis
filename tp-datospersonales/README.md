@@ -18,7 +18,7 @@ La lista de suscripciones representa el estado al momento de la exportación en 
 
 1. **Publicidad** — eventos publicitarios registrados por cada 100 reproducciones, publicado con Datawrapper.
 2. **Suscripciones** — coincidencia mensual entre el consumo histórico y los canales seguidos actualmente, publicado con Flourish.
-3. **Concentración** — distribución mensual del consumo entre el canal principal, los puestos 2–5, los puestos 6–10 y el resto, publicado con Flourish.
+3. **Concentración** — distribución anual (2017–2026, barras apiladas al 100%) del consumo entre el canal más visto, los canales 2–5, los canales 6–10 y el resto, con el ranking recalculado para cada año; publicado con Tableau Public. 2017 y 2026 son parciales.
 4. **Duración** — composición porcentual anual por rango de duración, creado con RAWGraphs y publicado como SVG.
 
 ## Herramientas
@@ -26,8 +26,9 @@ La lista de suscripciones representa el estado al momento de la exportación en 
 - Google Takeout para obtener el historial personal.
 - YouTube Data API v3 para enriquecer los videos con duración.
 - Datawrapper para la visualización de publicidad.
-- Flourish para suscripciones y concentración.
-- RAWGraphs para la distribución anual de duración.
+- Flourish para suscripciones.
+- Tableau Public para la concentración anual del consumo.
+- RAWGraphs para la distribución anual de duración (SVG insertado con `<object>`).
 - HTML, CSS y JavaScript vanilla para la experiencia editorial.
 
 ## Procesamiento y limitaciones
